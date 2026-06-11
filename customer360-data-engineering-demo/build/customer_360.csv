@@ -1,0 +1,7 @@
+customer_id,signup_date,signup_channel,loyalty_tier,country,completed_orders,total_revenue,returned_orders,web_events,web_sessions,checkout_events,support_tickets,avg_resolution_hours,had_high_priority_ticket,churn_label
+C001,2023-01-12,paid_search,gold,FI,2,214.4,0,3,1,1,1,4.0,0,0
+C002,2023-02-03,organic,silver,FI,1,44.0,0,1,1,0,1,18.0,0,0
+C003,2023-03-18,referral,bronze,IT,1,33.75,1,2,1,0,1,36.0,1,1
+C004,2023-04-22,paid_social,silver,US,2,149.3,0,2,1,0,1,5.0,0,0
+C005,2023-05-08,organic,gold,FI,2,334.99,0,2,1,1,0,0.0,0,0
+C006,2023-06-14,affiliate,bronze,US,1,18.5,0,1,1,0,1,42.0,1,1
