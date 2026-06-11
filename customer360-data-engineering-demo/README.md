@@ -17,6 +17,62 @@ The sample data was designed to look like realistic retail source-system extract
 
 Because the data is synthetic, the project is safe to publish on GitHub and does not contain personal, confidential, or production information.
 
+## Data Introduction
+
+The raw data represents four common source systems in a retail business. Each file is intentionally small so the full pipeline can be reviewed quickly.
+
+### `customers.csv`
+
+Customer profile data used as the base table for the Customer 360 product.
+
+| Column | Type | Description |
+| --- | --- | --- |
+| `customer_id` | String | Unique customer identifier, for example `C001` |
+| `first_name` | String | Synthetic customer first name |
+| `last_name` | String | Synthetic customer last name |
+| `email` | String | Synthetic customer email address |
+| `signup_date` | Date | Date when the customer joined |
+| `signup_channel` | String | Acquisition channel such as `organic`, `referral`, or `paid_search` |
+| `loyalty_tier` | String | Customer loyalty segment: `bronze`, `silver`, or `gold` |
+| `country` | String | Two-letter country code |
+
+### `orders.csv`
+
+Order transaction data used to calculate revenue, order count, return count, and latest order activity.
+
+| Column | Type | Description |
+| --- | --- | --- |
+| `order_id` | String | Unique order identifier |
+| `customer_id` | String | Customer linked to the order |
+| `order_date` | Date | Date when the order was placed |
+| `order_amount` | Decimal | Order value |
+| `status` | String | Order status: `completed` or `returned` |
+
+### `web_events.csv`
+
+Website activity data used to understand engagement and checkout behavior.
+
+| Column | Type | Description |
+| --- | --- | --- |
+| `event_id` | String | Unique event identifier |
+| `customer_id` | String | Customer linked to the event |
+| `event_time` | Timestamp | Time when the web event happened |
+| `event_type` | String | Event type such as `product_view`, `search`, `add_to_cart`, or `checkout` |
+| `session_id` | String | Website session identifier |
+
+### `support_tickets.csv`
+
+Customer service data used to measure support volume, resolution time, and high-priority issues.
+
+| Column | Type | Description |
+| --- | --- | --- |
+| `ticket_id` | String | Unique support ticket identifier |
+| `customer_id` | String | Customer linked to the support ticket |
+| `created_at` | Date | Date when the ticket was opened |
+| `category` | String | Support category such as `billing`, `delivery`, `return`, or `product` |
+| `priority` | String | Ticket priority: `low`, `medium`, or `high` |
+| `resolved_hours` | Integer | Number of hours needed to resolve the ticket |
+
 ## What This Project Does
 
 The pipeline builds a local Customer 360 data product from the synthetic raw datasets. It:
@@ -28,6 +84,20 @@ The pipeline builds a local Customer 360 data product from the synthetic raw dat
 5. Exports `customer_360.csv` with one row per customer.
 6. Trains a simple churn model using the Customer 360 output.
 7. Includes Snowflake-style SQL showing how a legacy Hive/Spark dataset could be migrated.
+
+## Workflow
+
+```mermaid
+flowchart TD
+    A["Synthetic CSV data<br/>customers, orders, web events, support tickets"] --> B["Schema and quality validation<br/>required columns, order status, non-negative amounts"]
+    B --> C["Load raw data into SQLite<br/>local warehouse tables"]
+    C --> D["Run SQL transformations<br/>customer-level aggregation"]
+    D --> E["Customer 360 data product<br/>build/customer_360.csv"]
+    E --> F["Churn model training<br/>scikit-learn pipeline"]
+    F --> G["Model artifacts<br/>churn_model.joblib and model_metrics.json"]
+    D --> H["Migration reference<br/>Hive/Spark logic rewritten for Snowflake"]
+    B --> I["Automated tests<br/>unit, integration, schema validation"]
+```
 
 ## Problem Set
 
