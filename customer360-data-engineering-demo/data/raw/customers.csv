@@ -1,0 +1,7 @@
+customer_id,first_name,last_name,email,signup_date,signup_channel,loyalty_tier,country
+C001,Amina,Rahman,amina.rahman@example.com,2023-01-12,paid_search,gold,FI
+C002,Jonas,Koskinen,jonas.koskinen@example.com,2023-02-03,organic,silver,FI
+C003,Lena,Moretti,lena.moretti@example.com,2023-03-18,referral,bronze,IT
+C004,Noah,Smith,noah.smith@example.com,2023-04-22,paid_social,silver,US
+C005,Sofia,Niemi,sofia.niemi@example.com,2023-05-08,organic,gold,FI
+C006,Mark,Johnson,mark.johnson@example.com,2023-06-14,affiliate,bronze,US

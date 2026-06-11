@@ -1,0 +1,6 @@
+ticket_id,customer_id,created_at,category,priority,resolved_hours
+T001,C001,2024-02-16,billing,low,4
+T002,C002,2024-03-03,delivery,medium,18
+T003,C003,2024-03-20,return,high,36
+T004,C004,2024-04-22,product,low,5
+T005,C006,2024-06-18,delivery,high,42
