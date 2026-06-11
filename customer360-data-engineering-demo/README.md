@@ -2,7 +2,7 @@
 
 This is a small, runnable data engineering portfolio project that shows how raw customer data can be validated, transformed, aggregated, and prepared for machine learning. The project simulates a retail Customer 360 use case where customer identity, orders, website activity, and support tickets are combined into one analytics-ready data product.
 
-The goal is not to build a large production platform. The goal is to demonstrate practical data engineering fundamentals in a project that a reviewer can clone, run, test, and understand quickly.
+The goal is not to pretend this is a large production platform. The goal is to demonstrate practical data engineering fundamentals in a project that a reviewer can clone, run, test, and understand quickly using only local Python and SQLite.
 
 ## Data Source
 
@@ -83,7 +83,6 @@ The pipeline builds a local Customer 360 data product from the synthetic raw dat
 4. Runs SQL transformations to aggregate customer-level features.
 5. Exports `customer_360.csv` with one row per customer.
 6. Trains a simple churn model using the Customer 360 output.
-7. Includes Snowflake-style SQL showing how a legacy Hive/Spark dataset could be migrated.
 
 ## Workflow
 
@@ -95,7 +94,6 @@ flowchart TD
     D --> E["Customer 360 data product<br/>build/customer_360.csv"]
     E --> F["Churn model training<br/>scikit-learn pipeline"]
     F --> G["Model artifacts<br/>churn_model.joblib and model_metrics.json"]
-    D --> H["Migration reference<br/>Hive/Spark logic rewritten for Snowflake"]
     B --> I["Automated tests<br/>unit, integration, schema validation"]
 ```
 
@@ -106,11 +104,11 @@ A retail business has customer, order, web event, and support-ticket data spread
 - Which customers are most valuable?
 - Which customers are at risk of churn?
 - Which source records are invalid before they enter the data product?
-- How would a legacy Hive/Spark table be migrated into a Snowflake model?
+- How can a local SQL pipeline produce a reliable Customer 360 dataset?
 
 ## Expected Outcome
 
-The pipeline builds `customer_360` with one row per customer, including revenue, order frequency, web activity, support activity, and churn labels. It also trains a simple churn model locally using the same script shape that can be used as an AWS SageMaker training entrypoint.
+The pipeline builds `customer_360` with one row per customer, including revenue, order frequency, web activity, support activity, and churn labels. It also trains a simple local scikit-learn churn model from the generated Customer 360 features.
 
 Generated outputs:
 
@@ -137,9 +135,9 @@ Key findings:
 - Python: maintainable package structure, reusable classes, clean CLI
 - SQL: staging, aggregation, and mart logic
 - Pandas / NumPy: data ingestion and feature preparation
-- SQLite locally, with Snowflake-flavored migration SQL included
+- SQLite: local warehouse tables and SQL transformations
 - pytest: unit, integration, and schema validation tests
-- ML workflow: SageMaker-style training script and model artifact output
+- ML workflow: local scikit-learn training script and model artifact output
 
 ## Project Structure
 
@@ -147,7 +145,7 @@ Key findings:
 customer360-data-engineering-demo/
   data/raw/                  # realistic sample source data
   docs/problem_set.md         # business questions and expected outcomes
-  sql/                        # warehouse transformations and migration SQL
+  sql/                        # SQLite transformations for the Customer 360 mart
   src/customer360/            # pipeline, validation, and ML code
   tests/                      # unit and integration tests
 ```
@@ -170,7 +168,6 @@ On macOS/Linux, use `source .venv/bin/activate`.
 
 - Customer 360 pipeline: `src/customer360/pipeline.py`, `sql/customer_360.sql`
 - ML workflow automation: `src/customer360/ml/train.py`
-- Hive/Spark to Snowflake migration: `sql/legacy_hive_to_snowflake.sql`
 - Clean Python and SQL: typed functions, small modules, clear boundaries
 - Testing and validation: `tests/`, `src/customer360/validation.py`
 
@@ -183,4 +180,4 @@ python -m customer360.cli validate --customer360 build/customer_360.csv
 
 ## Notes
 
-This project intentionally avoids requiring AWS or Snowflake credentials. The code is local-first so a reviewer can run it quickly, while the folder names, scripts, and SQL mirror how the same work would be packaged for production cloud workflows.
+This project is intentionally local-first. The implementation uses local files, Python, pandas, scikit-learn, pytest, and SQLite so a reviewer can run it quickly.

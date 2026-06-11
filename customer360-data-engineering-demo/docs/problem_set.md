@@ -2,7 +2,7 @@
 
 ## Business Scenario
 
-The company wants to combine scattered customer data into a Customer 360 data product for analytics and churn prediction. The legacy data platform stores Hive/Spark datasets on-premise, but the future target is Snowflake.
+The company wants to combine scattered customer data into a Customer 360 data product for analytics and churn prediction. For this demo, the implementation runs locally with CSV files, Python, and SQLite.
 
 ## Source Tables
 
@@ -13,16 +13,15 @@ The company wants to combine scattered customer data into a Customer 360 data pr
 
 ## Tasks
 
-1. Validate raw data before loading it into the warehouse.
+1. Validate raw data before loading it into the local SQLite warehouse.
 2. Load the source data into staging tables.
 3. Build a Customer 360 mart with customer-level aggregates.
 4. Export the mart as a CSV data product.
 5. Train a churn model using the exported Customer 360 features.
-6. Document how a legacy Hive/Spark dataset would be rewritten for Snowflake.
 
 ## Expected Outcome
 
-A reviewer can run the project locally and see a complete miniature data lifecycle: ingestion, validation, transformation, data product creation, model training, and tests.
+A reviewer can run the project locally and see a complete miniature data lifecycle: ingestion, validation, SQLite transformation, data product creation, model training, and tests.
 
 ## Acceptance Criteria
 
